@@ -1,0 +1,3 @@
+D:/Dev/School C++/cmake-build-debug/CMakeFiles/School_C__.dir
+D:/Dev/School C++/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Dev/School C++/cmake-build-debug/CMakeFiles/rebuild_cache.dir
