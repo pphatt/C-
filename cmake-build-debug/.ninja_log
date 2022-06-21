@@ -1,13 +1,7 @@
 # ninja log v5
-7	1594	6774446653370573	CMakeFiles/School_C__.dir/Assignment2.cpp.obj	1fae13ea0c8032da
-1595	2069	6774446658066477	School_C__.exe	f5c22031605fee3
-5	1194	6774447129733142	CMakeFiles/School_C__.dir/Assignment2.cpp.obj	1fae13ea0c8032da
-1195	1450	6774447132246426	School_C__.exe	f5c22031605fee3
-5	983	6774447696071810	CMakeFiles/School_C__.dir/Assignment2.cpp.obj	1fae13ea0c8032da
-984	1211	6774447698285543	School_C__.exe	f5c22031605fee3
-4	1608	6774450615329261	CMakeFiles/School_C__.dir/Assignment2.cpp.obj	1fae13ea0c8032da
-1608	1920	6774450618430970	School_C__.exe	f5c22031605fee3
-7	1094	6774451609114562	CMakeFiles/School_C__.dir/Assignment2.cpp.obj	1fae13ea0c8032da
-1095	1358	6774451611687262	School_C__.exe	f5c22031605fee3
-5	996	6774452268685756	CMakeFiles/School_C__.dir/Assignment2.cpp.obj	1fae13ea0c8032da
-996	1233	6774452271019520	School_C__.exe	f5c22031605fee3
+50	4683	6774886709623016	CMakeFiles/School_C__.dir/Assignment2.cpp.obj	1fae13ea0c8032da
+4684	4930	6774886712052274	School_C__.exe	f5c22031605fee3
+5	2199	6774886973169419	CMakeFiles/School_C__.dir/Assignment2.cpp.obj	1fae13ea0c8032da
+2199	2442	6774886975573374	School_C__.exe	f5c22031605fee3
+5	2001	6774887135204734	CMakeFiles/School_C__.dir/Assignment2.cpp.obj	1fae13ea0c8032da
+2002	2278	6774887137727966	School_C__.exe	f5c22031605fee3
