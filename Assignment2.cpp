@@ -176,16 +176,9 @@ void showStudent() {
             cout << endl;
 
             for (auto &i: dataStore.studentData[dataStore.number - 1]) {
-                double totalGrade = (stod(i[4]) + stod(i[5]) + stod(i[6]) + stod(i[7]) + stod(i[8])) / 5;
-
-                string status = "Passed";
-                if (totalGrade < 5) {
-                    status = "Failed";
-                }
-
                 cout << "+";
-                for (auto &i : indexLength1) {
-                    cout << setfill('-') << setw(i) << "" << "+";
+                for (auto j : indexLength1) {
+                    cout << setfill('-') << setw(j) << "" << "+";
                 }
 
                 cout << endl;
@@ -246,8 +239,8 @@ void deleteStudent() {
             }
 
             cout << "+";
-            for (auto &i : indexLength) {
-                cout << setfill('-') << setw(i) << "" << "+";
+            for (auto &j : indexLength) {
+                cout << setfill('-') << setw(j) << "" << "+";
             }
 
             cout << endl;
