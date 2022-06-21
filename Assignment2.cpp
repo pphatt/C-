@@ -101,16 +101,26 @@ void addFunction() {
 }
 
 void showStudent() {
+    if (dataStore.studentData.empty()) {
+        cout << "There are no data currently" << endl;
+        return;
+    }
+
     for (auto &i: dataStore.studentData) {
         cout << "--> " << i[0][3] << endl;
     }
+    int indexLength[] = {5,41,5,9,13,8};
     cout << "Input to use:";
     cin >> dataStore.number;
     cout << endl;
 
     if (dataStore.number > 0 && dataStore.number <= dataStore.studentData.size()) {
         cout << "+";
-        cout << setfill('-') << setw(86) << "" << "+" << endl;
+        for (auto &i : indexLength) {
+            cout << setfill('-') << setw(i) << "" << "+";
+        }
+
+        cout << endl;
         printf("| %-4s| %-40s| %-4s| %-8s| %-12s| %-7s|", "IDs", "Name", "Age", "Class", "Total Grade", "Status");
         cout << endl;
 
@@ -121,8 +131,13 @@ void showStudent() {
             if (totalGrade < 5) {
                 status = "Failed";
             }
+
             cout << "+";
-            cout << setfill('-') << setw(86) << "" << "+" << endl;
+            for (auto &j : indexLength) {
+                cout << setfill('-') << setw(j) << "" << "+";
+            }
+
+            cout << endl;
             cout << '|' << ' ' << setfill(' ') << setw(4) << left << i[0];
             cout << '|' << ' ' << setfill(' ') << setw(40) << left << i[1];
             cout << '|' << ' ' << setfill(' ') << setw(4) << left << i[2];
@@ -131,7 +146,11 @@ void showStudent() {
             cout << '|' << ' ' << setfill(' ') << setw(7) << left << status << '|' << endl;
         }
         cout << "+";
-        cout << setfill('-') << setw(86) << "" << "+" << endl;
+        for (auto &i : indexLength) {
+            cout << setfill('-') << setw(i) << "" << "+";
+        }
+
+        cout << endl;
 
         int number;
         cout << endl;
@@ -144,8 +163,13 @@ void showStudent() {
         cout << endl;
 
         if (number == 1) {
+            int indexLength1[] = {5,41,13,13,13,13,9};
             cout << "+";
-            cout << setfill('-') << setw(113) << left << "" << "+" << endl;
+            for (auto &i : indexLength1) {
+                cout << setfill('-') << setw(i) << "" << "+";
+            }
+
+            cout << endl;
 
             printf("| %-4s| %-40s| %-12s| %-12s| %-12s| %-12s| %-8s|", "IDs", "Name", "Math", "English", "Physics",
                    "Literature", "History");
@@ -160,7 +184,11 @@ void showStudent() {
                 }
 
                 cout << "+";
-                cout << setfill('-') << setw(113) << left << "" << "+" << endl;
+                for (auto &i : indexLength1) {
+                    cout << setfill('-') << setw(i) << "" << "+";
+                }
+
+                cout << endl;
                 cout << '|' << ' ' << setfill(' ') << setw(4) << left << i[0];
                 cout << '|' << ' ' << setfill(' ') << setw(40) << left << i[1];
                 cout << '|' << ' ' << setfill(' ') << setw(12) << left << i[4];
@@ -170,7 +198,11 @@ void showStudent() {
                 cout << '|' << ' ' << setfill(' ') << setw(8) << left << i[8] << '|' << endl;
             }
             cout << "+";
-            cout << setfill('-') << setw(113) << left << "" << "+" << endl;
+            for (auto &i : indexLength1) {
+                cout << setfill('-') << setw(i) << "" << "+";
+            }
+
+            cout << endl;
             pause();
         } else if (number == 2) {
             return;
@@ -182,16 +214,26 @@ void showStudent() {
 }
 
 void deleteStudent() {
-    for (auto &i: dataStore.studentData) {
-        cout << "-->" << i[0][3] << endl;
+    if (dataStore.studentData.empty()) {
+        cout << "There are no data currently" << endl;
+        return;
     }
 
+    for (auto &i: dataStore.studentData) {
+        cout << "--> " << i[0][3] << endl;
+    }
+
+    int indexLength[] = {5,41,5,9,13,8};
     cout << "Input to use:";
     cin >> dataStore.number;
 
     if (dataStore.number > 0 && dataStore.number <= dataStore.studentData.size()) {
         cout << "+";
-        cout << setfill('-') << setw(86) << "" << "+" << endl;
+        for (auto &i : indexLength) {
+            cout << setfill('-') << setw(i) << "" << "+";
+        }
+
+        cout << endl;
         printf("| %-4s| %-40s| %-4s| %-8s| %-12s| %-7s|", "IDs", "Name", "Age", "Class", "Total Grade", "Status");
         cout << endl;
 
@@ -204,7 +246,11 @@ void deleteStudent() {
             }
 
             cout << "+";
-            cout << setfill('-') << setw(86) << "" << "+" << endl;
+            for (auto &i : indexLength) {
+                cout << setfill('-') << setw(i) << "" << "+";
+            }
+
+            cout << endl;
             cout << '|' << ' ' << setfill(' ') << setw(4) << left << i[0];
             cout << '|' << ' ' << setfill(' ') << setw(40) << left << i[1];
             cout << '|' << ' ' << setfill(' ') << setw(4) << left << i[2];
@@ -213,14 +259,27 @@ void deleteStudent() {
             cout << '|' << ' ' << setfill(' ') << setw(7) << left << status << '|' << endl;
         }
         cout << "+";
-        cout << setfill('-') << setw(86) << "" << "+" << endl;
+        for (auto &i : indexLength) {
+            cout << setfill('-') << setw(i) << "" << "+";
+        }
+
+        cout << endl;
     }
+
     int number;
     cout << "Input to use:";
     cin >> number;
     if (number > 0 && number <= dataStore.studentData[dataStore.number - 1].size()) {
         dataStore.studentData[dataStore.number - 1].erase(
                 dataStore.studentData[dataStore.number - 1].begin() + number - 1);
+        if (dataStore.studentData[dataStore.number - 1].empty()) {
+            dataStore.studentData.erase(dataStore.studentData.begin() + dataStore.number - 1);
+        }
+
+        for (int i = 0; i < dataStore.studentData[dataStore.number - 1].size(); i++) {
+            dataStore.studentData[dataStore.number - 1][i][0] = to_string(i + 1);
+        }
+        cout << endl;
     } else {
         cout << "Invalid number" << endl;
         return;
