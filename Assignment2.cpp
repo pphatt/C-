@@ -336,8 +336,7 @@ void searchStudent() {
     cout << "\t\t\t+---------- Option ----------+\t\t\t" << endl;
     cout << "\t\t\t| 1. SEARCH BY IDs           |\t\t\t" << endl;
     cout << "\t\t\t| 2. SEARCH BY NAME          |\t\t\t" << endl;
-    cout << "\t\t\t| 3. SEARCH BY STATUS        |\t\t\t" << endl;
-    cout << "\t\t\t| 4. EXIT                    |\t\t\t" << endl;
+    cout << "\t\t\t| 3. EXIT                    |\t\t\t" << endl;
     cout << "\t\t\t+----------------------------+\t\t\t" << endl;
 
     cout << "Input to use:";
@@ -355,7 +354,7 @@ void searchStudent() {
             cin >> dataStore.number;
 
             if (dataStore.number <= 0 || dataStore.number >= dataStore.studentData.size()) {
-                cout << "There are no " << dataStore.number << " IDs in class" << checkClass << endl;
+                cout << "There are no " << dataStore.number << " IDs in class " << checkClass << endl;
                 return;
             }
 
@@ -407,7 +406,7 @@ void searchStudent() {
             cout << "Input Name to search:";
             cin >> name;
 
-            for(auto& i : dataStore.studentData[check]) {
+            for (auto &i: dataStore.studentData[check]) {
                 if (i[1] == name) {
                     cout << endl;
                     cout << "+";
@@ -416,7 +415,8 @@ void searchStudent() {
                     }
 
                     cout << endl;
-                    printf("| %-4s| %-40s| %-4s| %-8s| %-12s| %-7s|", "IDs", "Name", "Age", "Class", "Total Grade", "Status");
+                    printf("| %-4s| %-40s| %-4s| %-8s| %-12s| %-7s|", "IDs", "Name", "Age", "Class", "Total Grade",
+                           "Status");
                     cout << endl;
 
                     totalGrade = (stoi(i[4]) +
@@ -461,5 +461,114 @@ void searchStudent() {
 }
 
 void editStudent() {
+    if (dataStore.studentData.empty()) {
+        cout << "There are no data currently" << endl;
+        return;
+    }
 
+    string checkClass;
+    int check = -1;
+
+    cout << "Input student's class to locate:";
+    cin >> checkClass;
+
+    for (int i = 0; i < dataStore.studentData.size(); i++) {
+        if (dataStore.studentData[i][0][3] == checkClass) {
+            check = i;
+        }
+    }
+
+    if (check == -1) {
+        cout << "There are no " << checkClass << " class in data" << endl;
+        return;
+    }
+
+    cout << "Input student's IDs to edit:";
+    cin >> dataStore.number;
+
+    if (dataStore.number <= 0 || dataStore.number >= dataStore.studentData.size()) {
+        cout << "There are no " << dataStore.number << " IDs in class " << checkClass << endl;
+        return;
+    }
+    cout << endl;
+    while (true) {
+        cout << "\t\t\t+---------- Option ----------+\t\t\t" << endl;
+        cout << "\t\t\t| 1. EDIT NAME               |\t\t\t" << endl;
+        cout << "\t\t\t| 2. EDIT AGE                |\t\t\t" << endl;
+        cout << "\t\t\t| 3. EDIT CLASS              |\t\t\t" << endl;
+        cout << "\t\t\t| 3. EDIT MATH GRADE         |\t\t\t" << endl;
+        cout << "\t\t\t| 4. EDIT ENGLISH GRADE      |\t\t\t" << endl;
+        cout << "\t\t\t| 5. EDIT PHYSICS GRADE      |\t\t\t" << endl;
+        cout << "\t\t\t| 6. EDIT LITERATURE GRADE   |\t\t\t" << endl;
+        cout << "\t\t\t| 7. EDIT HISTORY GRADE      |\t\t\t" << endl;
+        cout << "\t\t\t| 8. EXIT                    |\t\t\t" << endl;
+        cout << "\t\t\t+----------------------------+\t\t\t" << endl;
+
+        int option;
+        string editTo;
+        string id;
+        cout << "Input to use:";
+        cin >> option;
+
+        switch (option) {
+            case 1:
+                cout << "Changing " << dataStore.studentData[check][dataStore.number - 1][1] << " to:";
+                cin >> editTo;
+                dataStore.studentData[check][dataStore.number - 1][1] = editTo;
+                break;
+            case 2:
+                cout << "Changing " << dataStore.studentData[check][dataStore.number - 1][2] << " to:";
+                cin >> editTo;
+                dataStore.studentData[check][dataStore.number - 1][2] = editTo;
+                break;
+            case 3:
+                cout << "Changing " << dataStore.studentData[check][dataStore.number - 1][3] << " to:";
+                cin >> editTo;
+
+                for (auto &i: dataStore.studentData) {
+                    if (i[0][3] == editTo) {
+                        id = to_string(i.size() + 1);
+                        i.push_back(
+                                {id, dataStore.studentData[check][dataStore.number - 1][1],
+                                 dataStore.studentData[check][dataStore.number - 1][2],
+                                 editTo,
+                                 dataStore.studentData[check][dataStore.number - 1][4],
+                                 dataStore.studentData[check][dataStore.number - 1][5],
+                                 dataStore.studentData[check][dataStore.number - 1][6],
+                                 dataStore.studentData[check][dataStore.number - 1][7],
+                                 dataStore.studentData[check][dataStore.number - 1][8]});
+
+                        cout << endl;
+                        return;
+                    }
+                }
+
+                dataStore.studentData.push_back(
+                        {{"1", dataStore.studentData[check][dataStore.number - 1][1],
+                          dataStore.studentData[check][dataStore.number - 1][2],
+                          editTo,
+                          dataStore.studentData[check][dataStore.number - 1][4],
+                          dataStore.studentData[check][dataStore.number - 1][5],
+                          dataStore.studentData[check][dataStore.number - 1][6],
+                          dataStore.studentData[check][dataStore.number - 1][7],
+                          dataStore.studentData[check][dataStore.number - 1][8]}});
+
+                dataStore.studentData[check].erase(
+                        dataStore.studentData[check].begin() + dataStore.number - 1);
+                if (dataStore.studentData[check].empty()) {
+                    dataStore.studentData.erase(dataStore.studentData.begin() + dataStore.number - 1);
+                }
+
+                for (int j = 0; j < dataStore.studentData[check].size(); j++) {
+                    dataStore.studentData[dataStore.number - 1][j][0] = to_string(j + 1);
+                }
+
+                cout << endl;
+                return;
+            default:
+                cout << endl;
+                return;
+        }
+        cout << endl;
+    }
 }
