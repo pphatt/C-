@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iomanip>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,12 +14,31 @@ void showStudent();
 
 void deleteStudent();
 
-struct DataStore {
+void searchStudent();
+
+void editStudent();
+
+struct {
     int number{};
     vector<vector<vector<string> > > studentData;
 } dataStore;
 
+class DummyData {
+public:
+    DummyData() {
+        dataStore.studentData.push_back({{"1", "P1", "18", "A1", "8", "7.5", "5.5", "8.4", "10"}});
+        dataStore.studentData[0].push_back({"2", "P2", "18", "A1", "8.8", "9.5", "4.5", "6.6", "10"});
+        dataStore.studentData[0].push_back({"3", "P3", "18", "A1", "8.5", "3.5", "8.5", "6.8", "10"});
+        dataStore.studentData[0].push_back({"4", "P4", "18", "A1", "6.8", "9.5", "9.5", "7.5", "10"});
+        dataStore.studentData.push_back({{"1", "R5", "18", "A2", "6.5", "6.5", "2.5", "10", "8"}});
+        dataStore.studentData[1].push_back({"2", "R5", "18", "A2", "9.5", "7.5", "9.5", "9", "5.5"});
+        dataStore.studentData[1].push_back({"3", "R5", "18", "A2", "2.5", "5.5", "8.5", "4.5", "6.5"});
+        dataStore.studentData[1].push_back({"4", "R5", "18", "A2", "6.5", "9.5", "10", "7.5", "10"});
+    }
+};
+
 int main() {
+    DummyData();
     studentManageSystem();
     return 0;
 }
@@ -30,7 +50,9 @@ void studentManageSystem() {
         cout << "\t\t\t| 1. ADD STUDENT                                   |\t\t\t" << endl;
         cout << "\t\t\t| 2. DELETE STUDENT                                |\t\t\t" << endl;
         cout << "\t\t\t| 3. SHOW STUDENT                                  |\t\t\t" << endl;
-        cout << "\t\t\t| 4. EXIT                                          |\t\t\t" << endl;
+        cout << "\t\t\t| 4. SEARCH STUDENT                                |\t\t\t" << endl;
+        cout << "\t\t\t| 5. EDIT STUDENT                                  |\t\t\t" << endl;
+        cout << "\t\t\t| 6. EXIT                                          |\t\t\t" << endl;
         cout << "\t\t\t+--------------------------------------------------+\t\t\t" << endl;
         cout << "Input to use:";
         cin >> number;
@@ -43,6 +65,12 @@ void studentManageSystem() {
                 break;
             case 3:
                 showStudent();
+                break;
+            case 4:
+                searchStudent();
+                break;
+            case 5:
+                editStudent();
                 break;
             default:
                 cout << "Invalid number";
@@ -277,4 +305,26 @@ void deleteStudent() {
         cout << "Invalid number" << endl;
         return;
     }
+}
+
+void searchStudent() {
+    if (dataStore.studentData.empty()) {
+        cout << "There are no data currently" << endl;
+        return;
+    }
+
+    cout << "\t\t\t+---------- Option ----------+\t\t\t" << endl;
+    cout << "\t\t\t| 1. SEARCH BY IDs           |\t\t\t" << endl;
+    cout << "\t\t\t| 1. SEARCH BY NAME          |\t\t\t" << endl;
+    cout << "\t\t\t| 1. SEARCH BY STATUS        |\t\t\t" << endl;
+    cout << "\t\t\t| 2. EXIT                    |\t\t\t" << endl;
+    cout << "\t\t\t+----------------------------+\t\t\t" << endl;
+
+    for (auto &i : dataStore.studentData) {
+
+    }
+}
+
+void editStudent() {
+
 }
