@@ -86,6 +86,12 @@ void pause() {
         cin.ignore(0xFFFFFFFF, '\n');
 }
 
+void output(vector<string> &data, string outputData, int num) {
+    cout << "Changing " << data[num] << " to:";
+    cin >> outputData;
+    data[num] = outputData;
+}
+
 void addFunction() {
     string name, age, id, classes, mathGrade, englishGrade, physicsGrade, literatureGrade, historyGrade;
     id = "1";
@@ -496,12 +502,12 @@ void editStudent() {
         cout << "\t\t\t| 1. EDIT NAME               |\t\t\t" << endl;
         cout << "\t\t\t| 2. EDIT AGE                |\t\t\t" << endl;
         cout << "\t\t\t| 3. EDIT CLASS              |\t\t\t" << endl;
-        cout << "\t\t\t| 3. EDIT MATH GRADE         |\t\t\t" << endl;
-        cout << "\t\t\t| 4. EDIT ENGLISH GRADE      |\t\t\t" << endl;
-        cout << "\t\t\t| 5. EDIT PHYSICS GRADE      |\t\t\t" << endl;
-        cout << "\t\t\t| 6. EDIT LITERATURE GRADE   |\t\t\t" << endl;
-        cout << "\t\t\t| 7. EDIT HISTORY GRADE      |\t\t\t" << endl;
-        cout << "\t\t\t| 8. EXIT                    |\t\t\t" << endl;
+        cout << "\t\t\t| 4. EDIT MATH GRADE         |\t\t\t" << endl;
+        cout << "\t\t\t| 5. EDIT ENGLISH GRADE      |\t\t\t" << endl;
+        cout << "\t\t\t| 6. EDIT PHYSICS GRADE      |\t\t\t" << endl;
+        cout << "\t\t\t| 7. EDIT LITERATURE GRADE   |\t\t\t" << endl;
+        cout << "\t\t\t| 8. EDIT HISTORY GRADE      |\t\t\t" << endl;
+        cout << "\t\t\t| 9. EXIT                    |\t\t\t" << endl;
         cout << "\t\t\t+----------------------------+\t\t\t" << endl;
 
         int option;
@@ -512,14 +518,10 @@ void editStudent() {
 
         switch (option) {
             case 1:
-                cout << "Changing " << dataStore.studentData[check][dataStore.number - 1][1] << " to:";
-                cin >> editTo;
-                dataStore.studentData[check][dataStore.number - 1][1] = editTo;
+                output(dataStore.studentData[check][dataStore.number - 1], editTo, 1);
                 break;
             case 2:
-                cout << "Changing " << dataStore.studentData[check][dataStore.number - 1][2] << " to:";
-                cin >> editTo;
-                dataStore.studentData[check][dataStore.number - 1][2] = editTo;
+                output(dataStore.studentData[check][dataStore.number - 1], editTo, 2);
                 break;
             case 3:
                 cout << "Changing " << dataStore.studentData[check][dataStore.number - 1][3] << " to:";
@@ -565,6 +567,21 @@ void editStudent() {
 
                 cout << endl;
                 return;
+            case 4:
+                output(dataStore.studentData[check][dataStore.number - 1], editTo, 4);
+                break;
+            case 5:
+                output(dataStore.studentData[check][dataStore.number - 1], editTo, 5);
+                break;
+            case 6:
+                output(dataStore.studentData[check][dataStore.number - 1], editTo, 6);
+                break;
+            case 7:
+                output(dataStore.studentData[check][dataStore.number - 1], editTo, 7);
+                break;
+            case 8:
+                output(dataStore.studentData[check][dataStore.number - 1], editTo, 8);
+                break;
             default:
                 cout << endl;
                 return;
