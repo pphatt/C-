@@ -18,6 +18,8 @@ void searchStudent();
 
 void editStudent();
 
+void pause();
+
 struct {
     int number{};
     vector<vector<vector<string> > > studentData;
@@ -137,14 +139,14 @@ void showStudent() {
     for (auto &i: dataStore.studentData) {
         cout << "--> " << i[0][3] << endl;
     }
-    int indexLength[] = {5,41,5,9,13,8};
+    int indexLength[] = {5, 41, 5, 9, 13, 8};
     cout << "Input to use:";
     cin >> dataStore.number;
     cout << endl;
 
     if (dataStore.number > 0 && dataStore.number <= dataStore.studentData.size()) {
         cout << "+";
-        for (auto &i : indexLength) {
+        for (auto &i: indexLength) {
             cout << setfill('-') << setw(i) << "" << "+";
         }
 
@@ -161,7 +163,7 @@ void showStudent() {
             }
 
             cout << "+";
-            for (auto &j : indexLength) {
+            for (auto &j: indexLength) {
                 cout << setfill('-') << setw(j) << "" << "+";
             }
 
@@ -174,7 +176,7 @@ void showStudent() {
             cout << '|' << ' ' << setfill(' ') << setw(7) << left << status << '|' << endl;
         }
         cout << "+";
-        for (auto &i : indexLength) {
+        for (auto &i: indexLength) {
             cout << setfill('-') << setw(i) << "" << "+";
         }
 
@@ -191,9 +193,9 @@ void showStudent() {
         cout << endl;
 
         if (number == 1) {
-            int indexLength1[] = {5,41,13,13,13,13,9};
+            int indexLength1[] = {5, 41, 13, 13, 13, 13, 9};
             cout << "+";
-            for (auto &i : indexLength1) {
+            for (auto &i: indexLength1) {
                 cout << setfill('-') << setw(i) << "" << "+";
             }
 
@@ -205,7 +207,7 @@ void showStudent() {
 
             for (auto &i: dataStore.studentData[dataStore.number - 1]) {
                 cout << "+";
-                for (auto j : indexLength1) {
+                for (auto j: indexLength1) {
                     cout << setfill('-') << setw(j) << "" << "+";
                 }
 
@@ -219,7 +221,7 @@ void showStudent() {
                 cout << '|' << ' ' << setfill(' ') << setw(8) << left << i[8] << '|' << endl;
             }
             cout << "+";
-            for (auto &i : indexLength1) {
+            for (auto &i: indexLength1) {
                 cout << setfill('-') << setw(i) << "" << "+";
             }
 
@@ -244,13 +246,13 @@ void deleteStudent() {
         cout << "--> " << i[0][3] << endl;
     }
 
-    int indexLength[] = {5,41,5,9,13,8};
+    int indexLength[] = {5, 41, 5, 9, 13, 8};
     cout << "Input to use:";
     cin >> dataStore.number;
 
     if (dataStore.number > 0 && dataStore.number <= dataStore.studentData.size()) {
         cout << "+";
-        for (auto &i : indexLength) {
+        for (auto &i: indexLength) {
             cout << setfill('-') << setw(i) << "" << "+";
         }
 
@@ -267,7 +269,7 @@ void deleteStudent() {
             }
 
             cout << "+";
-            for (auto &j : indexLength) {
+            for (auto &j: indexLength) {
                 cout << setfill('-') << setw(j) << "" << "+";
             }
 
@@ -280,7 +282,7 @@ void deleteStudent() {
             cout << '|' << ' ' << setfill(' ') << setw(7) << left << status << '|' << endl;
         }
         cout << "+";
-        for (auto &i : indexLength) {
+        for (auto &i: indexLength) {
             cout << setfill('-') << setw(i) << "" << "+";
         }
 
@@ -313,15 +315,148 @@ void searchStudent() {
         return;
     }
 
+    string checkClass;
+    int check = -1;
+
+    cout << "Input class to search:";
+    cin >> checkClass;
+
+    for (int i = 0; i < dataStore.studentData.size(); i++) {
+        if (dataStore.studentData[i][0][3] == checkClass) {
+            check = i;
+        }
+    }
+
+    if (check == -1) {
+        cout << "There are no " << checkClass << " class in data" << endl;
+        return;
+    }
+
+    cout << endl;
     cout << "\t\t\t+---------- Option ----------+\t\t\t" << endl;
     cout << "\t\t\t| 1. SEARCH BY IDs           |\t\t\t" << endl;
-    cout << "\t\t\t| 1. SEARCH BY NAME          |\t\t\t" << endl;
-    cout << "\t\t\t| 1. SEARCH BY STATUS        |\t\t\t" << endl;
-    cout << "\t\t\t| 2. EXIT                    |\t\t\t" << endl;
+    cout << "\t\t\t| 2. SEARCH BY NAME          |\t\t\t" << endl;
+    cout << "\t\t\t| 3. SEARCH BY STATUS        |\t\t\t" << endl;
+    cout << "\t\t\t| 4. EXIT                    |\t\t\t" << endl;
     cout << "\t\t\t+----------------------------+\t\t\t" << endl;
 
-    for (auto &i : dataStore.studentData) {
+    cout << "Input to use:";
+    cin >> dataStore.number;
 
+    string status = "Passed";
+    int totalGrade;
+    int indexLength[] = {5, 41, 5, 9, 13, 8};
+
+    string name;
+
+    switch (dataStore.number) {
+        case 1:
+            cout << "Input IDs to search:";
+            cin >> dataStore.number;
+
+            if (dataStore.number <= 0 || dataStore.number >= dataStore.studentData.size()) {
+                cout << "There are no " << dataStore.number << " IDs in class" << checkClass << endl;
+                return;
+            }
+
+            cout << endl;
+            cout << "+";
+            for (auto &i: indexLength) {
+                cout << setfill('-') << setw(i) << "" << "+";
+            }
+
+            cout << endl;
+            printf("| %-4s| %-40s| %-4s| %-8s| %-12s| %-7s|", "IDs", "Name", "Age", "Class", "Total Grade", "Status");
+            cout << endl;
+
+            totalGrade = (stoi(dataStore.studentData[check][dataStore.number - 1][4]) +
+                          stoi(dataStore.studentData[check][dataStore.number - 1][5]) +
+                          stoi(dataStore.studentData[check][dataStore.number - 1][6]) +
+                          stoi(dataStore.studentData[check][dataStore.number - 1][7]) +
+                          stoi(dataStore.studentData[check][dataStore.number - 1][8])) / 5;
+
+            status = "Passed";
+            if (totalGrade < 5) {
+                status = "Failed";
+            }
+
+            cout << "+";
+            for (auto &j: indexLength) {
+                cout << setfill('-') << setw(j) << "" << "+";
+            }
+
+            cout << endl;
+            cout << '|' << ' ' << setfill(' ') << setw(4) << left
+                 << dataStore.studentData[check][dataStore.number - 1][0];
+            cout << '|' << ' ' << setfill(' ') << setw(40) << left
+                 << dataStore.studentData[check][dataStore.number - 1][1];
+            cout << '|' << ' ' << setfill(' ') << setw(4) << left
+                 << dataStore.studentData[check][dataStore.number - 1][2];
+            cout << '|' << ' ' << setfill(' ') << setw(8) << left
+                 << dataStore.studentData[check][dataStore.number - 1][3];
+            cout << '|' << ' ' << setfill(' ') << setw(12) << left << totalGrade;
+            cout << '|' << ' ' << setfill(' ') << setw(7) << left << status << '|' << endl;
+            cout << "+";
+            for (auto &i: indexLength) {
+                cout << setfill('-') << setw(i) << "" << "+";
+            }
+            cout << endl;
+            pause();
+            break;
+        case 2:
+            cout << "Input Name to search:";
+            cin >> name;
+
+            for(auto& i : dataStore.studentData[check]) {
+                if (i[1] == name) {
+                    cout << endl;
+                    cout << "+";
+                    for (auto &j: indexLength) {
+                        cout << setfill('-') << setw(j) << "" << "+";
+                    }
+
+                    cout << endl;
+                    printf("| %-4s| %-40s| %-4s| %-8s| %-12s| %-7s|", "IDs", "Name", "Age", "Class", "Total Grade", "Status");
+                    cout << endl;
+
+                    totalGrade = (stoi(i[4]) +
+                                  stoi(i[5]) +
+                                  stoi(i[6]) +
+                                  stoi(i[7]) +
+                                  stoi(i[8])) / 5;
+
+                    status = "Passed";
+                    if (totalGrade < 5) {
+                        status = "Failed";
+                    }
+
+                    cout << "+";
+                    for (auto &j: indexLength) {
+                        cout << setfill('-') << setw(j) << "" << "+";
+                    }
+
+                    cout << endl;
+                    cout << '|' << ' ' << setfill(' ') << setw(4) << left
+                         << i[0];
+                    cout << '|' << ' ' << setfill(' ') << setw(40) << left
+                         << i[1];
+                    cout << '|' << ' ' << setfill(' ') << setw(4) << left
+                         << i[2];
+                    cout << '|' << ' ' << setfill(' ') << setw(8) << left
+                         << i[3];
+                    cout << '|' << ' ' << setfill(' ') << setw(12) << left << totalGrade;
+                    cout << '|' << ' ' << setfill(' ') << setw(7) << left << status << '|' << endl;
+                    cout << "+";
+                    for (auto &j: indexLength) {
+                        cout << setfill('-') << setw(j) << "" << "+";
+                    }
+                    cout << endl;
+                    pause();
+                    break;
+                }
+            }
+        default:
+            break;
     }
 }
 
