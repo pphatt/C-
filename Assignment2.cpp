@@ -18,6 +18,10 @@ void searchStudent();
 
 void editStudent();
 
+void getHighestStudentInfo();
+
+void getLowestStudentInfo();
+
 void pause();
 
 struct {
@@ -32,10 +36,11 @@ public:
         dataStore.studentData[0].push_back({"2", "P2", "18", "A1", "8.8", "9.5", "4.5", "6.6", "10"});
         dataStore.studentData[0].push_back({"3", "P3", "18", "A1", "8.5", "3.5", "8.5", "6.8", "10"});
         dataStore.studentData[0].push_back({"4", "P4", "18", "A1", "6.8", "9.5", "9.5", "7.5", "10"});
-        dataStore.studentData.push_back({{"1", "R5", "18", "A2", "6.5", "6.5", "2.5", "10", "8"}});
-        dataStore.studentData[1].push_back({"2", "R5", "18", "A2", "9.5", "7.5", "9.5", "9", "5.5"});
-        dataStore.studentData[1].push_back({"3", "R5", "18", "A2", "2.5", "5.5", "8.5", "4.5", "6.5"});
-        dataStore.studentData[1].push_back({"4", "R5", "18", "A2", "6.5", "9.5", "10", "7.5", "10"});
+        dataStore.studentData[0].push_back({"5", "P5", "18", "A1", "6.8", "9.5", "9.5", "7.5", "10"});
+        dataStore.studentData.push_back({{"1", "R1", "18", "A2", "6.5", "6.5", "2.5", "10", "8"}});
+        dataStore.studentData[1].push_back({"2", "R2", "18", "A2", "9.5", "7.5", "9.5", "9", "5.5"});
+        dataStore.studentData[1].push_back({"3", "R3", "18", "A2", "2.5", "5.5", "8.5", "4.5", "6.5"});
+        dataStore.studentData[1].push_back({"4", "R4", "18", "A2", "6.5", "9.5", "10", "7.5", "10"});
     }
 };
 
@@ -54,7 +59,9 @@ void studentManageSystem() {
         cout << "\t\t\t| 3. SHOW STUDENT                                  |\t\t\t" << endl;
         cout << "\t\t\t| 4. SEARCH STUDENT                                |\t\t\t" << endl;
         cout << "\t\t\t| 5. EDIT STUDENT                                  |\t\t\t" << endl;
-        cout << "\t\t\t| 6. EXIT                                          |\t\t\t" << endl;
+        cout << "\t\t\t| 6. GET HIGHEST STUDENT INFO                      |\t\t\t" << endl;
+        cout << "\t\t\t| 7. GET HIGHEST STUDENT INFO                      |\t\t\t" << endl;
+        cout << "\t\t\t| 8. EXIT                                          |\t\t\t" << endl;
         cout << "\t\t\t+--------------------------------------------------+\t\t\t" << endl;
         cout << "Input to use:";
         cin >> number;
@@ -74,6 +81,14 @@ void studentManageSystem() {
             case 5:
                 editStudent();
                 break;
+            case 6:
+                getHighestStudentInfo();
+                break;
+            case 7:
+                getLowestStudentInfo();
+                break;
+            case 8:
+                return;
             default:
                 cout << "Invalid number";
                 return;
@@ -589,3 +604,154 @@ void editStudent() {
         cout << endl;
     }
 }
+
+void getHighestStudentInfo() {
+    if (dataStore.studentData.empty()) {
+        cout << "There are no data currently" << endl;
+        return;
+    }
+
+    for (auto &i: dataStore.studentData) {
+        cout << "--> " << i[0][3] << endl;
+    }
+
+    int indexLength[] = {5, 41, 5, 9, 13, 8};
+    cout << "Input to use:";
+    cin >> dataStore.number;
+    cout << endl;
+
+    int max = (stoi(dataStore.studentData[dataStore.number - 1][0][4]) +
+               stoi(dataStore.studentData[dataStore.number - 1][0][5]) +
+               stoi(dataStore.studentData[dataStore.number - 1][0][6]) +
+               stoi(dataStore.studentData[dataStore.number - 1][0][7]) +
+               stoi(dataStore.studentData[dataStore.number - 1][0][8])) / 5;
+
+    vector<vector<string>> track;
+
+    if (dataStore.number > 0 && dataStore.number <= dataStore.studentData.size()) {
+        for (auto &i: dataStore.studentData[dataStore.number - 1]) {
+            int totalGrade = (stoi(i[4]) + stoi(i[5]) + stoi(i[6]) + stoi(i[7]) + stoi(i[8])) / 5;
+
+            if (totalGrade > max) {
+                max = totalGrade;
+                track.clear();
+                track.push_back(i);
+            } else if (totalGrade == max) {
+                track.push_back(i);
+            }
+        }
+    }
+
+    cout << "+";
+    for (auto &i: indexLength) {
+        cout << setfill('-') << setw(i) << "" << "+";
+    }
+
+    cout << endl;
+    printf("| %-4s| %-40s| %-4s| %-8s| %-12s| %-7s|", "IDs", "Name", "Age", "Class", "Total Grade", "Status");
+    cout << endl;
+
+    for (auto &i: track) {
+        string status = "Passed";
+        if (max < 5) {
+            status = "Failed";
+        }
+
+        cout << "+";
+        for (auto &j: indexLength) {
+            cout << setfill('-') << setw(j) << "" << "+";
+        }
+
+        cout << endl;
+        cout << '|' << ' ' << setfill(' ') << setw(4) << left << i[0];
+        cout << '|' << ' ' << setfill(' ') << setw(40) << left << i[1];
+        cout << '|' << ' ' << setfill(' ') << setw(4) << left << i[2];
+        cout << '|' << ' ' << setfill(' ') << setw(8) << left << i[3];
+        cout << '|' << ' ' << setfill(' ') << setw(12) << left << max;
+        cout << '|' << ' ' << setfill(' ') << setw(7) << left << status << '|' << endl;
+    }
+
+    cout << "+";
+    for (auto &i: indexLength) {
+        cout << setfill('-') << setw(i) << "" << "+";
+    }
+
+    cout << endl;
+    pause();
+}
+
+void getLowestStudentInfo() {
+    if (dataStore.studentData.empty()) {
+        cout << "There are no data currently" << endl;
+        return;
+    }
+
+    for (auto &i: dataStore.studentData) {
+        cout << "--> " << i[0][3] << endl;
+    }
+
+    int indexLength[] = {5, 41, 5, 9, 13, 8};
+    cout << "Input to use:";
+    cin >> dataStore.number;
+    cout << endl;
+
+    int max = (stoi(dataStore.studentData[dataStore.number - 1][0][4]) +
+               stoi(dataStore.studentData[dataStore.number - 1][0][5]) +
+               stoi(dataStore.studentData[dataStore.number - 1][0][6]) +
+               stoi(dataStore.studentData[dataStore.number - 1][0][7]) +
+               stoi(dataStore.studentData[dataStore.number - 1][0][8])) / 5;
+
+    vector<vector<string>> track;
+
+    if (dataStore.number > 0 && dataStore.number <= dataStore.studentData.size()) {
+        for (auto &i: dataStore.studentData[dataStore.number - 1]) {
+            int totalGrade = (stoi(i[4]) + stoi(i[5]) + stoi(i[6]) + stoi(i[7]) + stoi(i[8])) / 5;
+
+            if (totalGrade < max) {
+                max = totalGrade;
+                track.clear();
+                track.push_back(i);
+            } else if (totalGrade == max) {
+                track.push_back(i);
+            }
+        }
+    }
+
+    cout << "+";
+    for (auto &i: indexLength) {
+        cout << setfill('-') << setw(i) << "" << "+";
+    }
+
+    cout << endl;
+    printf("| %-4s| %-40s| %-4s| %-8s| %-12s| %-7s|", "IDs", "Name", "Age", "Class", "Total Grade", "Status");
+    cout << endl;
+
+    for (auto &i: track) {
+        string status = "Passed";
+        if (max < 5) {
+            status = "Failed";
+        }
+
+        cout << "+";
+        for (auto &j: indexLength) {
+            cout << setfill('-') << setw(j) << "" << "+";
+        }
+
+        cout << endl;
+        cout << '|' << ' ' << setfill(' ') << setw(4) << left << i[0];
+        cout << '|' << ' ' << setfill(' ') << setw(40) << left << i[1];
+        cout << '|' << ' ' << setfill(' ') << setw(4) << left << i[2];
+        cout << '|' << ' ' << setfill(' ') << setw(8) << left << i[3];
+        cout << '|' << ' ' << setfill(' ') << setw(12) << left << max;
+        cout << '|' << ' ' << setfill(' ') << setw(7) << left << status << '|' << endl;
+    }
+
+    cout << "+";
+    for (auto &i: indexLength) {
+        cout << setfill('-') << setw(i) << "" << "+";
+    }
+
+    cout << endl;
+    pause();
+}
+
